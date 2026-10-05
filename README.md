@@ -26,3 +26,11 @@ pj-running/
 │   └── 02_eda.ipynb
 ├── README.md
 └── requirements.txt
+## 4. Instalación y Ejecución
+
+Para reproducir este proyecto en tu entorno local, hay que tener Python instalado y sigue estos pasos:
+
+**1. Instalar las dependencias:**
+Abre la terminal en la carpeta raíz de este repositorio y ejecuta el siguiente comando para instalar las librerías necesarias:
+```bash
+pip install -r requirements.txt
