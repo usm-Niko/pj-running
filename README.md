@@ -34,3 +34,5 @@ Para reproducir este proyecto en tu entorno local, hay que tener Python instalad
 Abre la terminal en la carpeta raíz de este repositorio y ejecuta el siguiente comando para instalar las librerías necesarias:
 ```bash
 pip install -r requirements.txt
+streamlit run app/app.py
+python -m streamlit run app/app.py
