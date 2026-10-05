@@ -11,15 +11,24 @@ df_clean = df[df['elapsed time (s)'] <= 1800].dropna(subset=['average heart rate
 df_clean['pace_min_km'] = (df_clean['elapsed time (s)'] / 60) / (df_clean['distance (m)'] / 1000)
 df_clean = df_clean[(df_clean['pace_min_km'] >= 2) & (df_clean['pace_min_km'] <= 10)]
 
+# --- EL CONTROL INTERACTIVO OBLIGATORIO ---
+st.markdown("### Filtro Interactivo")
+filtro_genero = st.selectbox("Filtra los datos por género:", ["Todos", "M", "F"])
+
+# Aplicar el filtro
+if filtro_genero != "Todos":
+    df_filtrado = df_clean[df_clean['gender'] == filtro_genero]
+else:
+    df_filtrado = df_clean
+
 st.subheader("1. Distribución del Ritmo (Pace)")
-fig1 = px.histogram(df_clean, x='pace_min_km', nbins=40, color_discrete_sequence=['#1f77b4'])
+fig1 = px.histogram(df_filtrado, x='pace_min_km', nbins=40, color_discrete_sequence=['#1f77b4'])
 st.plotly_chart(fig1, use_container_width=True)
 
 st.subheader("2. Evolución Temporal del Esfuerzo")
-# Ajuste de fechas para el gráfico temporal
-df_clean['timestamp'] = pd.to_datetime(df_clean['timestamp'], format='%d/%m/%Y %H:%M')
-df_clean['mes'] = df_clean['timestamp'].dt.month
-df_mensual = df_clean.groupby('mes', as_index=False)['average heart rate (bpm)'].mean()
+df_filtrado['timestamp'] = pd.to_datetime(df_filtrado['timestamp'], format='%d/%m/%Y %H:%M')
+df_filtrado['mes'] = df_filtrado['timestamp'].dt.month
+df_mensual = df_filtrado.groupby('mes', as_index=False)['average heart rate (bpm)'].mean()
 
 fig2 = px.line(df_mensual, x='mes', y='average heart rate (bpm)', markers=True)
 st.plotly_chart(fig2, use_container_width=True)

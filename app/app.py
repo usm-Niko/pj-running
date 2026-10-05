@@ -14,8 +14,15 @@ El objetivo es determinar qué factores del entorno físico impactan en el desga
 ¿Cómo influyen los cambios de elevación (X) en el ritmo promedio y la frecuencia cardíaca (Y) durante entrenamientos de intervalos cortos registrados recientemente (T)?
 """)
 
-st.header("2. Nuestros Datos")
-st.markdown("Utilizamos un dataset de Kaggle con registros de **Strava**. Tras la limpieza de datos (aislando entrenamientos menores a 30 minutos y descartando valores nulos), contamos con **más de 4.400 observaciones**.")
+st.header("2. Nuestros Datos y Limpieza")
+st.markdown("""
+Utilizamos el dataset "Running races from Strava". Para asegurar la calidad del análisis, tomamos las siguientes decisiones de limpieza:
+* **Filtro de Alcance:** Se aislaron únicamente los entrenamientos cortos (menores a 30 minutos).
+* **Valores Faltantes:** Se encontraron más de 18.000 registros sin frecuencia cardíaca (`average heart rate`), los cuales fueron eliminados por ser esenciales para nuestra variable Y.
+* **Valores Atípicos:** Se calculó el ritmo (Pace) y se descartaron registros con ritmos irreales (menores a 2 min/km o mayores a 10 min/km).
+
+Tras la limpieza, contamos con una muestra robusta de **más de 4.400 observaciones** para analizar.
+""")
 
 # Cargar y mostrar los datos
 df = pd.read_csv('data/raw/raw-data-kaggle.csv', sep=';')
